@@ -1,0 +1,23 @@
+---
+- name: UPDATE PACKET
+  ansible.builtin.apt:
+    name: apt-transport-https
+    state: present
+    update_cache: true
+
+- name: DOCKER GPG
+  ansible.builtin.apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: ADD DOCKER REPO
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+    state: present
+
+- name: INSTALL DOCKER
+  ansible.builtin.apt:
+    name: 
+      - docker-ce
+      - docker-compose-plugin
+    update_cache: yes

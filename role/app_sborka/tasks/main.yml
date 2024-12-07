@@ -1,0 +1,20 @@
+---
+- name: CREATE CATALOG
+  ansible.builtin.file:
+    path: /opt/aplication
+    state: directory
+    mode: '0755'
+
+- name: COPY FILES
+  ansible.builtin.copy:
+    src: "../../../aplication/"
+    dest: /opt/aplication/
+    mode: '0644'
+
+- name: START COMPOSE FILE
+  community.docker.docker_compose_v2:
+    build: always
+    check_files_existing: true
+    project_src: /opt/aplication
+    state: present
+    pull: always
